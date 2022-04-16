@@ -3,7 +3,8 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 var path = require("path");
 var app = express();
-var http = require("http").createServer(app);
+var httpServer = require("http").createServer(app);
+const { Server } = require("socket.io");
 
 var corsOptions = {
   origin: "*",
@@ -23,4 +24,15 @@ app.post("/api/user/authorization", UserAuthorization);
 const UserRegistration = require("./post/user/registration");
 app.post("/api/user/registration", UserRegistration);
 
-http.listen(4000);
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["https://localhost:8080", "https://localhost:5000"],
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(socket.id);
+});
+
+httpServer.listen(8080);

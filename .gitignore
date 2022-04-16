@@ -82,3 +82,4 @@ package-lock.json
 apiDoc/
 
 package-lock.json
+yarn.lock

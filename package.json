@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon ./index.js",
-    "socket": "nodemon ./socket.js"
+    "start": "nodemon ./index.js"
   },
   "dependencies": {
     "async": "^3.2.3",
@@ -16,6 +15,7 @@
     "nodemon": "^2.0.15",
     "pg": "^8.7.3",
     "sequelize": "^6.19.0",
+    "socket.io": "^4.4.1",
     "winston": "^3.7.2",
     "winston-transport-sequelize": "^4.0.9"
   }
