@@ -7,7 +7,7 @@ var httpServer = require("http").createServer(app);
 const { Server } = require("socket.io");
 
 var corsOptions = {
-  origin: "*",
+  origin: "https://localhost:8080",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -26,7 +26,7 @@ app.post("/api/user/registration", UserRegistration);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://localhost:8080", "https://localhost:5000"],
+    origin: ["https://127.0.0.1:8080"],
     credentials: true,
   },
 });
@@ -35,4 +35,4 @@ io.on("connection", (socket) => {
   console.log(socket.id);
 });
 
-httpServer.listen(8080);
+httpServer.listen(3000);
