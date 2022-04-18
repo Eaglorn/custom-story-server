@@ -17,7 +17,8 @@ var logger = require("../../logger");
  */
 
 module.exports = async function (req, res) {
-  Users.findOne({
+  io.to("all").emit("chat", { name: "all", text: "test all emmit" });
+  /*Users.findOne({
     attributes: ["email"],
     where: { email: req.body.email },
   })
@@ -44,4 +45,5 @@ module.exports = async function (req, res) {
     .catch((err) => {
       logger.error(err);
     });
+    */
 };
