@@ -7,7 +7,7 @@ var httpServer = require("http").createServer(app);
 const { Server } = require("socket.io");
 
 var corsOptions = {
-  origin: "https://localhost:8080",
+  origin: ["all"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
@@ -26,8 +26,7 @@ app.post("/api/user/registration", UserRegistration);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://127.0.0.1:8080"],
-    credentials: true,
+    origin: "*",
   },
 });
 
