@@ -1,30 +1,24 @@
-const Sequelize = require("sequelize");
-const winston = require("winston");
-const WinstonTransportSequelize = require("winston-transport-sequelize");
+const winston = require('winston');
 
-const sequelize = new Sequelize(
-  "survival_forest_dev",
-  "survival_forest_dev",
-  "1352461324qQ",
-  {
-    host: "127.0.0.1",
-    dialect: "postgres",
-    logging: false,
-  }
-);
-
-const options = {
-  sequelize: sequelize,
-  tableName: "log",
-  meta: { project: "log" },
-  fields: { meta: Sequelize.JSONB },
-  modelOptions: { timestamps: false, freezeTableName: true },
-};
-
-const logger = new winston.createLogger({
-  transports: [new WinstonTransportSequelize(options)],
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'logs/info.log', level: 'info' }),
+    new winston.transports.File({ filename: 'logs/warn.log', level: 'warn' }),
+    new winston.transports.File({ filename: 'logs/debug.log', level: 'debug' }),
+  ],
+  exitOnError: false,
 });
 
-sequelize.sync();
+if (process.env.NODE_ENV !== 'prod') {
+  logger.add(
+    new winston.transports.Console({
+      format: winston.format.simple,
+    })
+  );
+}
 
 module.exports = logger;

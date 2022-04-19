@@ -1,6 +1,6 @@
-var md5 = require("md5");
-var Users = require("../../model/Users");
-var logger = require("../../logger");
+var md5 = require('md5');
+var Users = require('../../model/Users');
+var logger = require('../../logger');
 
 /**
  * @api {post} /user/authorization Авторизация пользователя
@@ -22,7 +22,7 @@ module.exports = async function (req, res) {
   var email = false;
   var password = false;
   Users.findOne({
-    attributes: ["password", "type"],
+    attributes: ['password', 'type'],
     where: {
       email: req.body.email,
     },

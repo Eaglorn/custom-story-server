@@ -83,3 +83,5 @@ apiDoc/
 
 package-lock.json
 yarn.lock
+
+logs/

@@ -1,5 +1,5 @@
-const { DataTypes, Model } = require("sequelize");
-const config = require("../config");
+const { DataTypes, Model } = require('sequelize');
+const config = require('../config');
 
 class Users extends Model {}
 
@@ -17,10 +17,10 @@ Users.init(
       type: DataTypes.TEXT,
     },
     type: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ENUM('admin', 'moderator', 'vip', 'user', 'guest'),
     },
   },
-  config("Users")
+  config('users')
 );
 
 module.exports = Users;
