@@ -13,12 +13,4 @@ const logger = winston.createLogger({
   exitOnError: false,
 });
 
-if (process.env.NODE_ENV !== 'prod') {
-  logger.add(
-    new winston.transports.Console({
-      format: winston.format.simple,
-    })
-  );
-}
-
 module.exports = logger;
