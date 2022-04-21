@@ -1,22 +1,8 @@
 var md5 = require('md5');
 const { User } = require('../../model');
 var logger = require('../../logger');
-
-/**
- * @api {post} /user/authorization Авторизация пользователя
- * @apiVersion 0.0.1
- * @apiSampleRequest off
- *
- * @apiName Authorization
- * @apiGroup User
- *
- * @apiParam {String} login Электронный почтовый ящик пользователя
- * @apiParam {String} password Пароль пользователя
- *
- * @apiSuccess {Boolean} success Успешность авторизации
- * @apiSuccess {Boolean} email Успешность ввода электронного почтового ящика
- * @apiSuccess {Boolean} password Успешность ввода пароль
- */
+const redis = require('../../redis');
+const utilConst = require('../../util');
 
 module.exports = async function (req, res) {
   var email = false;
@@ -35,6 +21,12 @@ module.exports = async function (req, res) {
         email = true;
       }
       if (email && password) {
+        redis.set(
+          req.body.socket,
+          { auth: true, type: user.type },
+          'ex',
+          utilConst.socketExpireKey
+        );
         res.send({ success: true, type: user.type });
       } else {
         res.send({
