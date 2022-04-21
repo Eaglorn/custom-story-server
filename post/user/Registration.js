@@ -1,5 +1,5 @@
 var md5 = require('md5');
-var Users = require('../../model/Users');
+const { User } = require('../../model');
 var logger = require('../../logger');
 
 /**
@@ -17,9 +17,9 @@ var logger = require('../../logger');
  */
 
 module.exports = async function (req, res) {
-  io.to('all').emit('chat', { name: 'all', text: 'test all emmit' });
-  Users.findOne({
-    attributes: ["email"],
+  //io.to('all').emit('chat', { name: 'all', text: 'test all emmit' });
+  User.findOne({
+    attributes: ['email'],
     where: { email: req.body.email },
   })
     .then((user1) => {

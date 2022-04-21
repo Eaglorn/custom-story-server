@@ -34,11 +34,7 @@ io.on('connection', (socket) => {
 
 global.io = io;
 
-// User
-const UserAuthorization = require('./post/user/authorization');
-app.post('/api/user/authorization', UserAuthorization);
-
-const UserRegistration = require('./post/user/registration');
-app.post('/api/user/registration', UserRegistration);
+app.post('/api/user/authorization', require('./post/user/Authorization'));
+app.post('/api/user/registration', require('./post/user/Registration'));
 
 httpServer.listen(3000);

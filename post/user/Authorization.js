@@ -1,5 +1,5 @@
 var md5 = require('md5');
-var Users = require('../../model/Users');
+const { User } = require('../../model');
 var logger = require('../../logger');
 
 /**
@@ -21,7 +21,7 @@ var logger = require('../../logger');
 module.exports = async function (req, res) {
   var email = false;
   var password = false;
-  Users.findOne({
+  User.findOne({
     attributes: ['password', 'type'],
     where: {
       email: req.body.email,
