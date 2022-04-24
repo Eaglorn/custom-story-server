@@ -24,12 +24,4 @@ User.init(
   db('users')
 );
 
-User.sync({ force: true }).then((user) => {
-  user.create({
-    email: 'admin@customstory.org',
-    password: 'f87898910cfac345265dc70c12645133',
-    type: 'admin',
-  });
-});
-
 module.exports = User;
