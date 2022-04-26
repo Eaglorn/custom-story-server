@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var app = express();
 var httpServer = require('http').createServer(app);
-const { Server } = require('socket.io');
-const uuid = require('uuid');
+var { Server } = require('socket.io');
+var uuid = require('uuid');
 
 var corsOptions = {
   origin: '*',
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 
 global.io = io;
 
-const User = require('./api/user');
+var User = require('./api/user');
 app.post('/api/user/authorization', User.Authorization);
 app.post('/api/user/registration', User.Registration);
 

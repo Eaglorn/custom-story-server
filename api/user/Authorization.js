@@ -1,18 +1,22 @@
 var md5 = require('md5');
-const { User } = require('../../model');
 var logger = require('../../logger');
 const redis = require('../../redis');
 const utilConst = require('../../util');
+const prisma = require('../../db');
 
 module.exports = async function (req, res) {
   var email = false;
   var password = false;
-  User.findOne({
-    attributes: ['password', 'type'],
-    where: {
-      email: req.body.email,
-    },
-  })
+  prisma.user
+    .findFirst({
+      where: {
+        email: req.body.email,
+      },
+      select: {
+        password: true,
+        type: true,
+      },
+    })
     .then((user) => {
       if (user != null) {
         if (md5(req.body.password) === user.password) {

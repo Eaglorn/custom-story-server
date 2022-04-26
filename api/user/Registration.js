@@ -1,9 +1,9 @@
 var md5 = require('md5');
 var uuid = require('uuid');
-const { User } = require('../../model');
 var logger = require('../../logger');
 const redis = require('../../redis');
 const utilConst = require('../../util');
+const prisma = require('../../db');
 
 module.exports = async function (req, res) {
   const redisIsUserRegistration = await redis.get(req.body.email);
@@ -14,10 +14,15 @@ module.exports = async function (req, res) {
     });
   } else {
     registration = false;
-    User.findOne({
-      attributes: ['email'],
-      where: { email: req.body.email },
-    })
+    prisma.user
+      .findFirst({
+        where: {
+          email: req.body.email,
+        },
+        select: {
+          email: true,
+        },
+      })
       .then((user) => {
         if (user === null) {
           const pass = md5(req.body.password);
