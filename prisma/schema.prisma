@@ -11,11 +11,11 @@ datasource db {
 }
 
 model User {
-  id       Int          @id @default(autoincrement())
-  email    String?      @unique
+  id       Int      @id @default(autoincrement())
+  email    String?  @unique
   password String?
-  type     UserType     @default(user)
-  balance  UserBalance?
+  type     UserType @default(user)
+  hero     Hero?
 }
 
 enum UserType {
@@ -25,10 +25,53 @@ enum UserType {
   user
 }
 
-model UserBalance {
-  id        Int     @id @default(autoincrement())
-  real_coin Decimal @default(0.0) @db.Money
-  game_coin Decimal @default(0.0) @db.Money
-  user      User    @relation(fields: [user_id], references: [id])
-  user_id   Int     @unique
+model Hero {
+  id         Int        @id @default(autoincrement())
+  user       User?      @relation(fields: [user_id], references: [id])
+  user_id    Int?       @unique
+  money      Decimal    @default(0.0) @db.Decimal(15, 3)
+  xp_current Decimal    @default(0.0) @db.Decimal(10, 3)
+  xp_need    Decimal    @default(0.0) @db.Decimal(10, 3)
+  lvl        Decimal    @default(0) @db.Decimal(4, 3)
+  str        Decimal    @default(10) @db.Decimal(4, 3)
+  agi        Decimal    @default(10) @db.Decimal(4, 3)
+  vit        Decimal    @default(10) @db.Decimal(4, 3)
+  int        Decimal    @default(10) @db.Decimal(4, 3)
+  inventory  Inventory?
+}
+
+model Inventory {
+  id              Int             @id @default(autoincrement())
+  hero            Hero?           @relation(fields: [hero_id], references: [id])
+  hero_id         Int?            @unique
+  equipment       EquipmentItem[]
+  container_slots Int?            @default(10) @db.SmallInt
+  container       ContainerItem[]
+}
+
+model EquipmentItem {
+  id           BigInt            @id @default(autoincrement())
+  inventory    Inventory         @relation(fields: [inventory_id], references: [id])
+  inventory_id Int               @unique
+  slot         EquipmentItemSlot
+}
+
+enum EquipmentItemSlot {
+  head
+  shoulders
+  body
+  bracers
+  gloves
+  belt
+  legs
+  boots
+  left_hand
+  right_hand
+  both_hand
+}
+
+model ContainerItem {
+  id           BigInt    @id @default(autoincrement())
+  inventory    Inventory @relation(fields: [inventory_id], references: [id])
+  inventory_id Int       @unique
 }
