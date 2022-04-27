@@ -27,8 +27,8 @@ enum UserType {
 
 model UserBalance {
   id        Int     @id @default(autoincrement())
-  real_coin Decimal @default(0.0)
-  game_coin Decimal @default(0.0)
+  real_coin Decimal @default(0.0) @db.Money
+  game_coin Decimal @default(0.0) @db.Money
   user      User    @relation(fields: [user_id], references: [id])
   user_id   Int     @unique
 }

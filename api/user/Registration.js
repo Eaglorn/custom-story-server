@@ -17,10 +17,7 @@ module.exports = async function (req, res) {
     prisma.user
       .findFirst({
         where: {
-          email: req.body.email,
-        },
-        select: {
-          email: true,
+          email: req.body.email
         },
       })
       .then((user) => {
