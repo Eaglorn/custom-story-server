@@ -33,11 +33,18 @@ model Hero {
   xp_current Decimal    @default(0.0) @db.Decimal(10, 3)
   xp_need    Decimal    @default(0.0) @db.Decimal(10, 3)
   lvl        Decimal    @default(0) @db.Decimal(4, 3)
-  str        Decimal    @default(10) @db.Decimal(4, 3)
-  agi        Decimal    @default(10) @db.Decimal(4, 3)
-  vit        Decimal    @default(10) @db.Decimal(4, 3)
-  int        Decimal    @default(10) @db.Decimal(4, 3)
+  stats      HeroStats?
   inventory  Inventory?
+}
+
+model HeroStats {
+  id      Int     @id @default(autoincrement())
+  hero    Hero?   @relation(fields: [hero_id], references: [id])
+  hero_id Int?    @unique
+  str     Decimal @default(10) @db.Decimal(4, 3)
+  agi     Decimal @default(10) @db.Decimal(4, 3)
+  vit     Decimal @default(10) @db.Decimal(4, 3)
+  int     Decimal @default(10) @db.Decimal(4, 3)
 }
 
 model Inventory {
