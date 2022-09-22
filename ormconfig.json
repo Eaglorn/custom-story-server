@@ -1,0 +1,14 @@
+{
+    "type": "postgres",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "username": "customstorydev",
+    "password": "customstorydev",
+    "database": "customstorydev",
+    "logging": true,
+    "migrationsTableName": "migration_table",
+    "migrations": ["migrations/*.ts"],
+    "cli": {
+        "migrationsDir": "src/migration"
+    }
+}
