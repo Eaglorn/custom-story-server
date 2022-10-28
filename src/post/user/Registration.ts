@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import md5 from "md5";
 import logger from "../../logger";
 import { AppDataSource } from "../../dataSource";
-import { User } from "../../logger/User";
+import { User } from "../../entity/User";
 
 export const UserRegistration = async function (req: Request, res: Response) {
   const userRepository = AppDataSource.getRepository(User);
@@ -19,7 +18,7 @@ export const UserRegistration = async function (req: Request, res: Response) {
       if (user === null) {
         const user = new User();
         user.email = req.body.email;
-        user.password = md5(req.body.password);
+        user.setPassword(req.body.password);
         userRepository
           .save(user)
           .then(() => {

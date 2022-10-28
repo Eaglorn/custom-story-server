@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import md5 from "md5";
 import logger from "../../logger";
 import { AppDataSource } from "../../dataSource";
-import { User } from "../../logger/User";
+import { User } from "../../entity/User";
 
 export const UserAuthorization = async function (req: Request, res: Response) {
   const userRepository = AppDataSource.getRepository(User);
@@ -20,7 +19,7 @@ export const UserAuthorization = async function (req: Request, res: Response) {
     })
     .then((user: User) => {
       if (user != null) {
-        if (md5(req.body.password) === user.password) {
+        if(user.isPassword({ pass: req.body.password })) {
           password = true;
         }
         email = true;
