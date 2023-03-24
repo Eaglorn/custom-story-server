@@ -17,16 +17,16 @@ module.exports = async function (req, res) {
     prisma.user
       .findFirst({
         where: {
-          email: req.body.email
+          email: req.body.email,
         },
       })
       .then((user) => {
         if (user === null) {
           const pass = md5(req.body.password);
+          // FIX Заменить redis на postgresql
           redis.set(
             req.body.email,
             { pass: pass, code: uuid.v4() },
-            'ex',
             utilConst.socketExpireKey
           );
           res.send({

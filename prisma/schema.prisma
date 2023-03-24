@@ -10,6 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// TODO Создать модель заявок на регистрацию пользователей
+
 model User {
   id       Int      @id @default(autoincrement())
   email    String?  @unique
@@ -30,13 +32,8 @@ model Hero {
   user            User?           @relation(fields: [user_id], references: [id])
   user_id         Int?            @unique
   money           Decimal         @default(0.0) @db.Decimal(15, 3)
-  xp_current      Decimal         @default(0.0) @db.Decimal(10, 3)
-  xp_need         Decimal         @default(0.0) @db.Decimal(10, 3)
-  lvl             Int             @default(0)
   hp              Decimal         @default(0.0) @db.Decimal(9, 3)
-  hp_max          Decimal         @default(0.0) @db.Decimal(9, 3)
   mp              Decimal         @default(0.0) @db.Decimal(9, 3)
-  mp_max          Decimal         @default(0.0) @db.Decimal(9, 3)
   str             Decimal         @default(10.0) @db.Decimal(7, 3)
   agi             Decimal         @default(10.0) @db.Decimal(7, 3)
   vit             Decimal         @default(10.0) @db.Decimal(7, 3)
