@@ -83,3 +83,5 @@ yarn.lock
 
 logs/
 prisma/docs/
+
+.env

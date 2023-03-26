@@ -1,7 +1,6 @@
 var md5 = require('md5');
 var uuid = require('uuid');
 var logger = require('../../logger');
-const redis = require('../../redis');
 const utilConst = require('../../util');
 const prisma = require('../../db');
 
@@ -24,6 +23,7 @@ module.exports = async function (req, res) {
         if (user === null) {
           const pass = md5(req.body.password);
           // FIX Заменить redis на postgresql
+
           redis.set(
             req.body.email,
             { pass: pass, code: uuid.v4() },
