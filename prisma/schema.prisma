@@ -10,55 +10,55 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model RegistrationCheck {
+model registration_check {
   id       Int       @id @default(autoincrement())
   email    String?   @unique
   password String?
   code     String?
-  date     DateTime?
+  date     String?
 }
 
-model User {
-  id       Int      @id @default(autoincrement())
-  email    String?  @unique
+model user {
+  id       Int       @id @default(autoincrement())
+  email    String?   @unique
   password String?
-  type     UserType @default(user)
-  hero     Hero?
+  type     user_type @default(user)
+  hero     hero?
 }
 
-enum UserType {
+enum user_type {
   admin
   moderator
   vip
   user
 }
 
-model Hero {
-  id              Int             @id @default(autoincrement())
-  user            User?           @relation(fields: [user_id], references: [id])
-  user_id         Int?            @unique
-  money           Decimal         @default(0.0) @db.Decimal(15, 3)
-  hp              Decimal         @default(0.0) @db.Decimal(9, 3)
-  mp              Decimal         @default(0.0) @db.Decimal(9, 3)
-  str             Decimal         @default(10.0) @db.Decimal(7, 3)
-  agi             Decimal         @default(10.0) @db.Decimal(7, 3)
-  vit             Decimal         @default(10.0) @db.Decimal(7, 3)
-  sta             Decimal         @default(10.0) @db.Decimal(7, 3)
-  int             Decimal         @default(10.0) @db.Decimal(7, 3)
-  wis             Decimal         @default(10.0) @db.Decimal(7, 3)
-  equipment       EquipmentItem[]
-  container_slots Int?            @default(10) @db.SmallInt
-  container       ContainerItem[]
+model hero {
+  id              Int              @id @default(autoincrement())
+  user            user?            @relation(fields: [user_id], references: [id])
+  user_id         Int?             @unique
+  money           Decimal          @default(0.0) @db.Decimal(15, 3)
+  hp              Decimal          @default(0.0) @db.Decimal(9, 3)
+  mp              Decimal          @default(0.0) @db.Decimal(9, 3)
+  str             Decimal          @default(10.0) @db.Decimal(7, 3)
+  agi             Decimal          @default(10.0) @db.Decimal(7, 3)
+  vit             Decimal          @default(10.0) @db.Decimal(7, 3)
+  sta             Decimal          @default(10.0) @db.Decimal(7, 3)
+  int             Decimal          @default(10.0) @db.Decimal(7, 3)
+  wis             Decimal          @default(10.0) @db.Decimal(7, 3)
+  equipment       equipment_item[]
+  container_slots Int?             @default(10) @db.SmallInt
+  container       container_item[]
 }
 
-model EquipmentItem {
-  id      BigInt            @id @default(autoincrement())
-  hero    Hero              @relation(fields: [hero_id], references: [id])
-  hero_id Int               @unique
-  slot    EquipmentItemSlot
+model equipment_item {
+  id      BigInt              @id @default(autoincrement())
+  hero    hero                @relation(fields: [hero_id], references: [id])
+  hero_id Int                 @unique
+  slot    equipment_item_slot
 }
 
-enum EquipmentItemSlot {
+enum equipment_item_slot {
   head
   shoulders
   body
@@ -72,8 +72,8 @@ enum EquipmentItemSlot {
   both_hand
 }
 
-model ContainerItem {
+model container_item {
   id      BigInt @id @default(autoincrement())
-  hero    Hero   @relation(fields: [hero_id], references: [id])
+  hero    hero   @relation(fields: [hero_id], references: [id])
   hero_id Int    @unique
 }
