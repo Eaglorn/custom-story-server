@@ -1,6 +1,5 @@
 var md5 = require('md5');
 var logger = require('../../logger');
-const redis = require('../../redis');
 const prisma = require('../../db');
 
 module.exports = async function (req, res) {
