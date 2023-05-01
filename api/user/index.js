@@ -2,4 +2,4 @@ const Authorization = require('./Authorization');
 const Registration = require('./Registration');
 const RegistrationCheckEmail = require('./RegistrationCheckEmail');
 
-module.exports = { Authorization, Registration };
+module.exports = { Authorization, Registration, RegistrationCheckEmail };
