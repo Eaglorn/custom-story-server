@@ -5,6 +5,12 @@ var DateTime = require('luxon').DateTime;
 module.exports = async function (req, res) {
   prisma.registration_check
     .findFirst({
+      select: {
+        code: true,
+        password: true,
+        id: true,
+        email: true,
+      },
       where: {
         email: req.body.email,
       },
@@ -21,6 +27,15 @@ module.exports = async function (req, res) {
               },
             })
             .then(() => {
+              prisma.registration_check
+                .delete({
+                  where: {
+                    id: result.id,
+                  },
+                })
+                .catch((err) => {
+                  logger.error(err);
+                });
               res.send({
                 success: true,
               });
