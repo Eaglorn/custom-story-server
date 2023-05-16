@@ -37,6 +37,6 @@ global.io = io;
 var User = require('./api/user');
 app.post('/api/user/authorization', User.Authorization);
 app.post('/api/user/registration', User.Registration);
-app.post('/api/user/registration/check/email', User.RegistrationCheckEmail);
+app.post('/api/user/registration/check', User.RegistrationCheck);
 
 httpServer.listen(3000);

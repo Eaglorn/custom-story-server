@@ -1,6 +1,7 @@
 var logger = require('../../logger');
 const prisma = require('../../db');
-var DateTime = require('luxon').DateTime;
+
+// TODO: Доработать код, Удаление регистрационного кода перенести после созданяи персонажа
 
 module.exports = async function (req, res) {
   prisma.registration_check
@@ -33,12 +34,14 @@ module.exports = async function (req, res) {
                     id: result.id,
                   },
                 })
+                .then(() => {
+                  res.send({
+                    success: true,
+                  });
+                })
                 .catch((err) => {
                   logger.error(err);
                 });
-              res.send({
-                success: true,
-              });
             })
             .catch((err) => {
               logger.error(err);
@@ -53,5 +56,8 @@ module.exports = async function (req, res) {
           success: false,
         });
       }
+    })
+    .catch((err) => {
+      logger.error(err);
     });
 };

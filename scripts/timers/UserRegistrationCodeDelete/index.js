@@ -1,7 +1,5 @@
-// TODO: Создать таймер удаления просроченных заявок на регистрацию
-
-var logger = require('../logger');
-const prisma = require('../db');
+var logger = require('../../../logger');
+const prisma = require('../../../db');
 var DateTime = require('luxon').DateTime;
 
 prisma.registration_check
@@ -11,7 +9,7 @@ prisma.registration_check
     },
     where: {
       date: {
-        gte: DateTime.now().plus({ hour: 1 }).toMillis(),
+        lte: BigInt(DateTime.now().minus({ hour: 1 }).toMillis()),
       },
     },
   })
@@ -25,7 +23,7 @@ prisma.registration_check
         })
         .catch((err) => {
           logger.error(err);
-        })
+        });
     });
   })
   .catch((err) => {

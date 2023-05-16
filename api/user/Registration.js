@@ -55,7 +55,7 @@ module.exports = async function (req, res) {
                         code +
                         '</p>',
                     })
-                    .then((result) => {
+                    .then(() => {
                       res.send({
                         registration_email: false,
                         success: true,
