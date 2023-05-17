@@ -18,10 +18,11 @@ model registration_check {
   date     BigInt? @db.BigInt
 }
 
-  model user {
+model user {
   id       Int       @id @default(autoincrement())
   email    String?   @unique
   password String?
+  status   String?
   type     user_type @default(user)
   hero     hero?
 }
@@ -38,14 +39,8 @@ model hero {
   user            user?            @relation(fields: [user_id], references: [id])
   user_id         Int?             @unique
   money           Decimal          @default(0.0) @db.Decimal(15, 3)
-  hp              Decimal          @default(0.0) @db.Decimal(9, 3)
-  mp              Decimal          @default(0.0) @db.Decimal(9, 3)
-  str             Decimal          @default(10.0) @db.Decimal(7, 3)
-  agi             Decimal          @default(10.0) @db.Decimal(7, 3)
-  vit             Decimal          @default(10.0) @db.Decimal(7, 3)
-  sta             Decimal          @default(10.0) @db.Decimal(7, 3)
+  body            Decimal          @default(10.0) @db.Decimal(7, 3)
   int             Decimal          @default(10.0) @db.Decimal(7, 3)
-  wis             Decimal          @default(10.0) @db.Decimal(7, 3)
   equipment       equipment_item[]
   container_slots Int?             @default(10) @db.SmallInt
   container       container_item[]
