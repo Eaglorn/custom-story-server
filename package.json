@@ -6,30 +6,30 @@
     "dev": "set NODE_ENV=dev && node ./index.js",
     "prod": "set NODE_ENV=prod && node ./index.js",
     "generate": "npx prisma generate",
-    "migrate": "npx prisma migrate dev",
+    "migrate": "npx prisma migrate dev && yarn generate",
     "studio": "npx prisma studio",
     "docs": "npx prisma-docs-generator serve",
     "up": "yarn install && yarn upgrade"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
+    "@prisma/client": "^5.1.1",
     "async": "^3.2.4",
     "bignumber.js": "^9.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "decimal.js": "^10.4.3",
     "express": "^4.18.2",
-    "lodash": "^4.17.21",
-    "luxon": "^3.3.0",
+    "luxon": "^3.4.0",
     "md5": "^2.3.0",
     "mongodb": "^5.7.0",
     "nodemailer": "^6.9.4",
-    "pg": "^8.11.1",
-    "socket.io": "^4.7.1",
+    "pg": "^8.11.3",
+    "radash": "^11.0.0",
+    "socket.io": "^4.7.2",
     "uuid": "^9.0.0",
     "winston": "^3.10.0"
   },
   "devDependencies": {
-    "prisma": "^5.0.0"
+    "prisma": "^5.1.1"
   }
 }
