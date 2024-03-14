@@ -12,7 +12,7 @@
     "up": "yarn install && yarn upgrade"
   },
   "dependencies": {
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.11.0",
     "async": "^3.2.5",
     "bignumber.js": "^9.1.2",
     "body-parser": "^1.20.2",
@@ -30,6 +30,6 @@
     "winston": "^3.12.0"
   },
   "devDependencies": {
-    "prisma": "^5.10.2"
+    "prisma": "^5.11.0"
   }
 }
