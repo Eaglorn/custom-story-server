@@ -1,10 +1,10 @@
-var md5 = require('md5');
-var logger = require('../../logger');
+const md5 = require('md5');
+const logger = require('../../logger');
 const prisma = require('../../db');
 
 module.exports = async function (req, res) {
-  var email = false;
-  var password = false;
+  let email = false;
+  let password = false;
   prisma.user
     .findFirst({
       where: {

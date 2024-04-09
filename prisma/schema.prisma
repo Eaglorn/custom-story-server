@@ -38,9 +38,9 @@ model hero {
   id              Int              @id @default(autoincrement())
   user            user?            @relation(fields: [user_id], references: [id])
   user_id         Int?             @unique
-  money           Decimal          @default(0.0) @db.Decimal(15, 3)
-  body            Decimal          @default(10.0) @db.Decimal(7, 3)
-  int             Decimal          @default(10.0) @db.Decimal(7, 3)
+  money           String?
+  body            String?
+  int             String?
   equipment       equipment_item[]
   container_slots Int?             @default(10) @db.SmallInt
   container       container_item[]
