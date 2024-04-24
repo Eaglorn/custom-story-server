@@ -85,3 +85,5 @@ logs/
 prisma/docs/
 
 .env
+
+dist/
