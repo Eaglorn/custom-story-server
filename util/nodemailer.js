@@ -1,11 +1,12 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
+  host: 'mail.customstory.ru',
   port: 587,
+  secure: false,
   auth: {
-      user: 'reggie.greenholt18@ethereal.email',
-      pass: 'xwCBb6pTpCUE5AyaKE'
+      user: 'registration@customstory.ru',
+      pass: '1352461324qQ'
   }
 });
 
