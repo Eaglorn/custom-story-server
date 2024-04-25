@@ -1,13 +1,13 @@
-var express = require('express');
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var path = require('path');
-var app = express();
-var httpServer = require('http').createServer(app);
-var { Server } = require('socket.io');
-var uuid = require('uuid');
+let express = require('express');
+let cors = require('cors');
+let bodyParser = require('body-parser');
+let path = require('path');
+let app = express();
+let httpServer = require('http').createServer(app);
+let { Server } = require('socket.io');
+let uuid = require('uuid');
 
-var corsOptions = {
+let corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200,
 };
@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-var io = new Server(httpServer, {
+let io = new Server(httpServer, {
   cors: {
     origin: '*',
   },
@@ -34,9 +34,12 @@ io.on('connection', (socket) => {
 
 global.io = io;
 
-var User = require('./api/user');
+let User = require('./api/user');
 app.post('/api/user/authorization', User.Authorization);
 app.post('/api/user/registration', User.Registration);
 app.post('/api/user/registration/check', User.RegistrationCheck);
+app.get('/*', (req, res) => {
+  res.sendFile(__dirname + '/dist/index.html');
+})
 
 httpServer.listen(3000);

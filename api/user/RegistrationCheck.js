@@ -1,7 +1,7 @@
-var logger = require('../../logger');
+let logger = require('../../logger');
 const prisma = require('../../db');
 
-// TODO: Доработать код, Удаление регистрационного кода перенести после созданяи персонажа
+// TODO: Доработать код, Удаление регистрационного кода перенести после создания персонажа
 
 module.exports = async function (req, res) {
   prisma.registration_check
