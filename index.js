@@ -4,14 +4,14 @@ let bodyParser = require('body-parser');
 let path = require('path');
 let app = express();
 const fs = require('fs');
-let httpServer = require('https').createServer(
-  {
-    key: fs.readFileSync('c:/certs/key.pem'),
+let httpsServer = require('https').createServer(
+{
+	key: fs.readFileSync('c:/certs/key.pem'),
     cert: fs.readFileSync('c:/certs/cert.pem'),
-  }, app);
+}, app);
+
 let { Server } = require('socket.io');
 let uuid = require('uuid');
-
 
 let corsOptions = {
   origin: '*',
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-let io = new Server(httpServer, {
+let io = new Server(httpsServer, {
   cors: {
     origin: '*',
   },
@@ -48,4 +48,6 @@ app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 })
 
-httpServer.listen(80);
+httpsServer.listen(443, "195.133.196.229", function () {
+	console.log(`Server listens https://195.133.196.229:443`);
+});
