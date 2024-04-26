@@ -8,12 +8,14 @@ module.exports = function (io) {
     countPlayers++;
     console.log(countPlayers);
     socket.emit('ChangeCountPlayer', {countPlayers: countPlayers});
+
+    socket.on("disconnect", (reason) => {
+      console.log(countPlayers);
+      countPlayers--;
+      console.log(countPlayers);
+      socket.emit('ChangeCountPlayer', {countPlayers: countPlayers});
+    });
   });
 
-  io.on('disconnect', async (socket) => {
-    console.log(countPlayers);
-    countPlayers--;
-    console.log(countPlayers);
-    socket.emit('ChangeCountPlayer', {countPlayers: countPlayers});
-  });
+
 };
