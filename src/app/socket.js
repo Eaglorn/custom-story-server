@@ -3,6 +3,7 @@ const logger = require('../../logger');
 let countPlayers = 0;
 
 module.exports = function (io) {
+  console.log(countPlayers);
   try {
     io.on('connection', async (socket) => {
       console.log(countPlayers);
