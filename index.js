@@ -29,6 +29,8 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+const socketHandler = require('./src/app/socket');
+
 let io = new Server(httpsServer, {
   cors: {
     origin: '*',
@@ -42,10 +44,6 @@ io.engine.generateId = (req) => {
 socketHandler(io);
 
 global.io = io;
-
-const socketHandler = require('./src/app/socket');
-
-socketHandler(global.io);
 
 let User = require('./api/user');
 app.post('/api/user/authorization', User.Authorization);
