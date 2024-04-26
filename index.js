@@ -3,9 +3,15 @@ let cors = require('cors');
 let bodyParser = require('body-parser');
 let path = require('path');
 let app = express();
-let httpServer = require('http').createServer(app);
+const fs = require('fs');
+let httpServer = require('https').createServer(
+  {
+    key: fs.readFileSync('c:/certs/key.pem'),
+    cert: fs.readFileSync('c:/certs/cert.pem'),
+  }, app);
 let { Server } = require('socket.io');
 let uuid = require('uuid');
+
 
 let corsOptions = {
   origin: '*',
@@ -42,4 +48,4 @@ app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 })
 
-httpServer.listen(3000);
+httpServer.listen(80);
