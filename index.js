@@ -41,9 +41,7 @@ io.engine.generateId = (req) => {
   return uuid.v4();
 };
 
-io.on('connection', (socket) => {
-  socket.join('all');
-});
+socketHandler(io);
 
 global.io = io;
 
