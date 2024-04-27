@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "set NODE_ENV=dev && node ./index.js",
+    "redirect": "node ./redirect.js",
     "prod": "set NODE_ENV=prod && node ./index.js",
     "generate": "npx prisma generate",
     "migrate": "npx prisma migrate dev && yarn generate",

@@ -50,11 +50,7 @@ app.post('/api/user/authorization', User.Authorization);
 app.post('/api/user/registration', User.Registration);
 app.post('/api/user/registration/check', User.RegistrationCheck);
 app.get('/*', (req, res) => {
-  if (req.protocol == 'http') {
-    res.redirect('https://customstory.online');
-  } else {
-    res.sendFile(__dirname + '/dist/index.html');
-  }
+  res.sendFile(__dirname + '/dist/index.html');
 });
 
 httpsServer.listen(443, '195.133.196.229', function () {});
