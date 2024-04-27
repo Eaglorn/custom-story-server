@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const mailRegistration = nodemailer.createTransport({
-  host: 'mail.customstory.ru',
+  host: 'connect.smtp.bz',
   port: 587,
   secure: false,
   auth: {
