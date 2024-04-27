@@ -5,7 +5,7 @@ const mailRegistration = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-      user: 'registration@customstory.ru',
+      user: 'registration@customstory.online',
       pass: '1352461324qQ'
   }
 });
