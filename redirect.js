@@ -7,4 +7,4 @@ app.get('/*', (req, res) => {
   res.redirect('https://customstory.online');
 });
 
-httpServer.listen(443, '195.133.196.229', function () {});
+httpServer.listen(80, '195.133.196.229', function () {});
