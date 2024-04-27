@@ -1,15 +1,16 @@
 const logger = require('../../logger');
 
-let countPlayers = 0;
+let PlayersCount = 0;
 
 module.exports = function (io) {
   io.on('connection', async (socket) => {
-    countPlayers++;
-    socket.emit('ChangeCountPlayer', {countPlayers: countPlayers});
+    PlayersCount++;
+    socket.emit("GetPlayersCount", {value: PlayersCount});
+    socket.broadcast.emit("AddPlayersCount");
 
     socket.on("disconnect", (reason) => {
-      countPlayers--;
-      socket.emit('ChangeCountPlayer', {countPlayers: countPlayers});
+      PlayersCount--;
+      io.sockets.emit("RemovePlayersCount");
     });
   });
 };
