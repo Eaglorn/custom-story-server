@@ -45,18 +45,16 @@ socketHandler(io);
 
 global.io = io;
 
-app.get('/', function(req, res, next) {
-  if (req.protocol == 'http') {
-      res.redirect('https://customstory.online');
-  }
-});
-
 let User = require('./api/user');
 app.post('/api/user/authorization', User.Authorization);
 app.post('/api/user/registration', User.Registration);
 app.post('/api/user/registration/check', User.RegistrationCheck);
 app.get('/*', (req, res) => {
-  res.sendFile(__dirname + '/dist/index.html');
+  if (req.protocol == 'http') {
+    res.redirect('https://customstory.online');
+  } else {
+    res.sendFile(__dirname + '/dist/index.html');
+  }
 });
 
 httpsServer.listen(443, '195.133.196.229', function () {});
