@@ -46,7 +46,7 @@ module.exports = async function (req, res) {
                 .then(() => {
                   mailRegistration
                     .sendMail({
-                      from: 'registration@customstory.ru',
+                      from: 'registration@customstory.online',
                       to: req.body.email,
                       subject: 'Регистрация в игре CustomStory',
                       text: 'Ваш код для подтверждения регистрации:', // plain text body
