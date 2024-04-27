@@ -3,7 +3,7 @@ var uuid = require('uuid');
 var logger = require('../../logger');
 const prisma = require('../../db');
 var DateTime = require('luxon').DateTime;
-const transporter = require('../../util/nodemailer');
+const mailRegistration = require('../../util/nodemailer');
 
 module.exports = async function (req, res) {
   prisma.registration_check
@@ -44,11 +44,11 @@ module.exports = async function (req, res) {
                   },
                 })
                 .then(() => {
-                  transporter
+                  mailRegistration
                     .sendMail({
                       from: 'registration@customstory.ru',
                       to: req.body.email,
-                      subject: 'Регистрация в игре CustomStory.',
+                      subject: 'Регистрация в игре CustomStory',
                       text: 'Ваш код для подтверждения регистрации:', // plain text body
                       html:
                         '<p>Ваш код для подтверждения регистрации<p>' +
