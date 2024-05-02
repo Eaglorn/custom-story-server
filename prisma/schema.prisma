@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["omitApi"]
 }
 
@@ -12,11 +12,18 @@ datasource db {
 }
 
 model registration_check {
-  id       Int     @id @default(autoincrement())
-  email    String? @unique
+  id       Int                       @id @default(autoincrement())
+  email    String?                   @unique
   password String?
   code     String?
-  date     BigInt? @db.BigInt
+  date     BigInt?                   @db.BigInt
+  status   registration_check_ststus @default(write_code)
+}
+
+enum registration_check_ststus {
+  write_code
+  history_read
+  hero_create
 }
 
 model user {

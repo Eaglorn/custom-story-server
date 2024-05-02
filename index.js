@@ -47,8 +47,13 @@ global.io = io;
 
 let User = require('./api/user');
 app.post('/api/user/authorization', User.Authorization);
-app.post('/api/user/registration', User.Registration);
-app.post('/api/user/registration/check', User.RegistrationCheck);
+
+let UserRegistration = require('./api/user/registration');
+
+app.post('/api/user/registration', UserRegistration.Registration);
+app.post('/api/user/registration/check/code', UserRegistration.CheckCode);
+app.post('/api/user/registration/history/read', UserRegistration.HistoryRead);
+app.post('/api/user/registration/hero/create', UserRegistration.HeroCreate);
 app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html');
 });
