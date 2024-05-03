@@ -3,9 +3,6 @@ const logger = require('../../logger');
 const prisma = require('../../db');
 
 module.exports = async function (req, res) {
-  let email = false;
-  let password = false;
-
   try {
     const user = await prisma.user.findFirst({
       where: {
@@ -16,21 +13,42 @@ module.exports = async function (req, res) {
         type: true,
       },
     });
-
     if (user != null) {
       if (md5(req.body.password) === user.password) {
-        password = true;
+        res.send({ success: true, registration: false, type: user.type });
+      } else {
+        res.send({
+          success: false,
+          email: true,
+          password: false,
+        });
       }
-      email = true;
-    }
-    if (email && password) {
-      res.send({ success: true, type: user.type });
     } else {
-      res.send({
-        success: false,
-        email: email,
-        password: password,
+      const registrationCheck = await prisma.user.findFirst({
+        where: {
+          email: req.body.email,
+        },
+        select: {
+          state,
+          password,
+        },
       });
+      if (registrationCheck != null) {
+        if (md5(req.body.password) === registrationCheck.password) {
+          res.send({ success: true, registration: true, type: registrationCheck.type });
+        } else {
+          res.send({
+            success: false,
+            email: true,
+            password: false,
+          });
+        }
+      } else {
+        res.send({
+          success: false,
+          email: false,
+        });
+      }
     }
   } catch (error) {
     logger.error(error);

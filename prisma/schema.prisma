@@ -17,10 +17,10 @@ model registration_check {
   password String?
   code     String?
   date     BigInt?                   @db.BigInt
-  status   registration_check_ststus @default(write_code)
+  state   registration_check_state @default(write_code)
 }
 
-enum registration_check_ststus {
+enum registration_check_state {
   write_code
   history_read
   hero_create
@@ -30,7 +30,6 @@ model user {
   id       Int       @id @default(autoincrement())
   email    String?   @unique
   password String?
-  status   String?
   type     user_type @default(user)
   hero     hero?
 }

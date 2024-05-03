@@ -14,7 +14,6 @@ module.exports = async function (req, res) {
         email: req.body.email,
       },
     });
-
     if (registrationCheck != null) {
       if (registrationCheck.code === req.body.code) {
         prisma.registration_check.update({
@@ -25,7 +24,6 @@ module.exports = async function (req, res) {
             status: 'history_read',
           },
         });
-
         res.send({
           success: true,
         });

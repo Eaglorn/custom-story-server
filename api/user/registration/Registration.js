@@ -13,7 +13,6 @@ module.exports = async function (req, res) {
         email: req.body.email,
       },
     });
-
     if (registrationCheck != null) {
       res.send({
         registration_email: true,
@@ -25,7 +24,6 @@ module.exports = async function (req, res) {
           email: req.body.email,
         },
       });
-
       if (user != null) {
         res.send({
           registration_email: false,
@@ -41,7 +39,6 @@ module.exports = async function (req, res) {
             date: DateTime.now().toMillis(),
           },
         });
-
         mailRegistration.sendMail({
           from: 'registration@customstory.online',
           to: req.body.email,
@@ -49,7 +46,6 @@ module.exports = async function (req, res) {
           text: 'Ваш код для подтверждения регистрации:',
           html: '<p>Ваш код для подтверждения регистрации<p>' + code + '</p>',
         });
-
         res.send({
           registration_email: false,
           success: true,
