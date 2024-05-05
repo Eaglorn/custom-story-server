@@ -39,6 +39,7 @@ module.exports = async function (req, res) {
         } else {
           res.send({
             success: false,
+            registration: false,
             email: true,
             password: false,
           });
@@ -46,6 +47,7 @@ module.exports = async function (req, res) {
       } else {
         res.send({
           success: false,
+          registration: false,
           email: false,
         });
       }

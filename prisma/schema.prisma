@@ -12,12 +12,12 @@ datasource db {
 }
 
 model registration_check {
-  id       Int                       @id @default(autoincrement())
-  email    String?                   @unique
+  id       Int                      @id @default(autoincrement())
+  email    String?                  @unique
   password String?
   code     String?
-  date     BigInt?                   @db.BigInt
-  state   registration_check_state @default(write_code)
+  date     BigInt?                  @db.BigInt
+  state    registration_check_state @default(write_code)
 }
 
 enum registration_check_state {

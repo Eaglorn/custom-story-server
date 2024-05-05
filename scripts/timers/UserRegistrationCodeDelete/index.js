@@ -1,6 +1,6 @@
-var logger = require('../../../logger');
+const logger = require('../../../logger');
 const prisma = require('../../../db');
-var DateTime = require('luxon').DateTime;
+const DateTime = require('luxon').DateTime;
 
 prisma.registration_check
   .findMany({
@@ -9,7 +9,7 @@ prisma.registration_check
     },
     where: {
       date: {
-        lte: BigInt(DateTime.now().minus({ hour: 1 }).toMillis()),
+        lte: BigInt(DateTime.now().minus({ hour: 48 }).toMillis()),
       },
     },
   })
