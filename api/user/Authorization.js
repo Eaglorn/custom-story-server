@@ -30,7 +30,6 @@ module.exports = async function (req, res) {
           email: req.body.email,
         },
         select: {
-          state,
           password,
           type,
         },
