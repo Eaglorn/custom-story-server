@@ -8,10 +8,8 @@ const mailRegistration = require('../../../util/nodemailer');
 module.exports = async function (req, res) {
   try {
     let user = prisma.user.findFirst({
+      where: { email: req.body.email },
       select: { email: true },
-      where: {
-        email: req.body.email,
-      },
     });
     if (user != null) {
       res.send({
@@ -20,9 +18,7 @@ module.exports = async function (req, res) {
       });
     } else {
       const registrationCheck = await prisma.registration_check.findFirst({
-        where: {
-          email: req.body.email,
-        },
+        where: { email: req.body.email },
         select: { email: true, password: true, type: true },
       });
       if (registrationCheck != null) {

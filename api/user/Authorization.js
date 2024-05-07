@@ -5,13 +5,8 @@ const prisma = require('../../db');
 module.exports = async function (req, res) {
   try {
     const user = await prisma.user.findFirst({
-      where: {
-        email: req.body.email,
-      },
-      select: {
-        password: true,
-        type: true,
-      },
+      where: { email: req.body.email },
+      select: { password: true, type: true },
     });
     if (user != null) {
       if (md5(req.body.password) === user.password) {
@@ -26,13 +21,8 @@ module.exports = async function (req, res) {
       }
     } else {
       const registrationCheck = await prisma.user.findFirst({
-        where: {
-          email: req.body.email,
-        },
-        select: {
-          password,
-          type,
-        },
+        where: { email: req.body.email },
+        select: { password: true, type: true },
       });
       if (registrationCheck != null) {
         if (md5(req.body.password) === registrationCheck.password) {
