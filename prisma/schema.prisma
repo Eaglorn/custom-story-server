@@ -17,10 +17,10 @@ model registration_check {
   password String?
   code     String?
   date     BigInt?                  @db.BigInt
-  state    registration_check_state @default(write_code)
+  type    registration_check_type @default(write_code)
 }
 
-enum registration_check_state {
+enum registration_check_type {
   write_code
   history_read
   hero_create

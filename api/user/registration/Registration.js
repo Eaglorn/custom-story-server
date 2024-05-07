@@ -7,28 +7,34 @@ const mailRegistration = require('../../../util/nodemailer');
 
 module.exports = async function (req, res) {
   try {
-    const registrationCheck = await prisma.registration_check.findFirst({
+    let user = prisma.user.findFirst({
       select: { email: true },
       where: {
         email: req.body.email,
       },
     });
-    if (registrationCheck != null) {
+    if (user != null) {
       res.send({
-        registration_email: true,
+        registration: false,
+        email: false,
       });
     } else {
-      let user = prisma.user.findFirst({
-        select: { email: true },
+      const registrationCheck = await prisma.registration_check.findFirst({
         where: {
           email: req.body.email,
         },
+        select: { email: true, password: true, type: true },
       });
-      if (user != null) {
-        res.send({
-          registration_email: false,
-          success: false,
-        });
+      if (registrationCheck != null) {
+        if (md5(req.body.password) === registrationCheck.password) {
+          res.send({
+            success: true,
+            registration: true,
+            type: registrationCheck.type,
+          });
+        } else {
+          res.send({ success: true, registration: true, password: false });
+        }
       } else {
         const code = uuid.v4();
         prisma.registration_check.create({
@@ -37,6 +43,7 @@ module.exports = async function (req, res) {
             password: md5(req.body.password),
             code: code,
             date: DateTime.now().toMillis(),
+            type: 'write_code',
           },
         });
         mailRegistration.sendMail({
@@ -47,8 +54,8 @@ module.exports = async function (req, res) {
           html: '<p>Ваш код для подтверждения регистрации<p>' + code + '</p>',
         });
         res.send({
-          registration_email: false,
           success: true,
+          registration: true,
         });
       }
     }

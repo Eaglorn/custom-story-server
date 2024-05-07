@@ -32,11 +32,16 @@ module.exports = async function (req, res) {
         select: {
           state,
           password,
+          type,
         },
       });
       if (registrationCheck != null) {
         if (md5(req.body.password) === registrationCheck.password) {
-          res.send({ success: true, registration: true, type: registrationCheck.type });
+          res.send({
+            success: true,
+            registration: true,
+            type: registrationCheck.type,
+          });
         } else {
           res.send({
             success: false,
