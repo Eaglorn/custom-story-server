@@ -9,7 +9,7 @@ prisma.registration_check
     },
     where: {
       date: {
-        lte: BigInt(DateTime.now().minus({ hour: 48 }).toMillis()),
+        lte: BigInt(DateTime.now().minus({ hour: 6 }).toMillis()),
       },
     },
   })
