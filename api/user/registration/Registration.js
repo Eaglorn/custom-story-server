@@ -50,7 +50,7 @@ module.exports = async function (req, res) {
           html: '<p>Ваш код для подтверждения регистрации<p>' + code + '</p>',
         });
         res.send({
-          success: true,
+          success: true, registration: false
         });
       }
     }
