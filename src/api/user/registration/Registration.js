@@ -3,7 +3,7 @@ const uuid = require('uuid');
 const logger = require('../../../logger');
 const prisma = require('../../../db');
 const DateTime = require('luxon').DateTime;
-const mailRegistration = require('../../../util/nodemailer');
+const mailRegistration = require('../../../nodemailer');
 
 module.exports = async function (req, res) {
   try {

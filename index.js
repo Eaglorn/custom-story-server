@@ -1,11 +1,11 @@
-let express = require('express');
-let cors = require('cors');
-let bodyParser = require('body-parser');
-let path = require('path');
-let compression = require('compression');
-let app = express();
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
+const compression = require('compression');
+const app = express();
 const fs = require('fs');
-let httpsServer = require('https').createServer(
+const httpsServer = require('https').createServer(
   {
     key: fs.readFileSync('c:/certs/key.pem'),
     cert: fs.readFileSync('c:/certs/cert.pem'),
@@ -13,12 +13,12 @@ let httpsServer = require('https').createServer(
   app
 );
 
-let { Server } = require('socket.io');
-let uuid = require('uuid');
+const { Server } = require('socket.io');
+const uuid = require('uuid');
 
 app.use(compression());
 
-let corsOptions = {
+const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200,
 };
@@ -29,9 +29,9 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-const socketHandler = require('./src/app/socket');
+const socketHandler = require('./src/socket');
 
-let io = new Server(httpsServer, {
+const io = new Server(httpsServer, {
   cors: {
     origin: '*',
   },
@@ -41,14 +41,16 @@ io.engine.generateId = (req) => {
   return uuid.v4();
 };
 
+const { cronRegistrationCheckDelete } = require('./src/app/cron');
+
 socketHandler(io);
 
 global.io = io;
 
-let User = require('./api/user');
+const User = require('./src/api/user');
 app.post('/api/user/authorization', User.Authorization);
 
-let UserRegistration = require('./api/user/registration');
+const UserRegistration = require('./src/api/user/registration');
 
 app.post('/api/user/registration', UserRegistration.Registration);
 app.post('/api/user/registration/check/code', UserRegistration.CheckCode);
@@ -59,3 +61,14 @@ app.get('/*', (req, res) => {
 });
 
 httpsServer.listen(443, '195.133.196.229', function () {});
+
+const app2 = express();
+
+let httpServer = require('http').createServer(app2);
+
+app2.get('/*', (req, res) => {
+  res.redirect('https://customstory.online');
+});
+
+httpServer.listen(80, '195.133.196.229', function () {});
+
