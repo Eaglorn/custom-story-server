@@ -11,7 +11,6 @@ module.exports = async function (req, res) {
       where: { email: req.body.email },
       select: { email: true },
     });
-    console.log(user);
     if (user != null) {
       res.send({
         registration: false,
@@ -34,7 +33,7 @@ module.exports = async function (req, res) {
         }
       } else {
         const code = uuid.v4();
-        prisma.registration_check.create({
+        await prisma.registration_check.create({
           data: {
             email: req.body.email,
             password: md5(req.body.password),
@@ -43,7 +42,7 @@ module.exports = async function (req, res) {
             type: 'write_code',
           },
         });
-        mailRegistration.sendMail({
+        await mailRegistration.sendMail({
           from: 'registration@customstory.online',
           to: req.body.email,
           subject: 'Регистрация в игре CustomStory',
