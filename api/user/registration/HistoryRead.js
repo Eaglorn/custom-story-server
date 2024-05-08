@@ -24,6 +24,9 @@ module.exports = async function (req, res) {
             type: 'hero_create',
           },
         });
+        res.send({
+          success: true,
+        });
       }
     }
   } catch (error) {
