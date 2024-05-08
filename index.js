@@ -41,7 +41,7 @@ io.engine.generateId = (req) => {
   return uuid.v4();
 };
 
-const { cronRegistrationCheckDelete } = require('./src/app/cron');
+const { cronRegistrationCheckDelete } = require('./src/cron');
 
 socketHandler(io);
 
