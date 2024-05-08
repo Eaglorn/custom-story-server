@@ -7,7 +7,7 @@ const mailRegistration = require('../../../util/nodemailer');
 
 module.exports = async function (req, res) {
   try {
-    let user = prisma.user.findFirst({
+    let user = await prisma.user.findFirst({
       where: { email: req.body.email },
       select: { email: true },
     });
