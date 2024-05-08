@@ -17,11 +17,11 @@ model registration_check {
   password String?
   code     String?
   date     BigInt?                  @db.BigInt
-  type    registration_check_type @default(write_code)
+  type    registration_check_type @default(code_write)
 }
 
 enum registration_check_type {
-  write_code
+  code_write
   history_read
   hero_create
 }
