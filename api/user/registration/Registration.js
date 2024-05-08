@@ -33,7 +33,7 @@ module.exports = async function (req, res) {
         }
       } else {
         const code = uuid.v4();
-        await prisma.registration_check.create({
+        prisma.registration_check.create({
           data: {
             email: req.body.email,
             password: md5(req.body.password),
@@ -42,7 +42,7 @@ module.exports = async function (req, res) {
             type: 'write_code',
           },
         });
-        await mailRegistration.sendMail({
+        mailRegistration.sendMail({
           from: 'registration@customstory.online',
           to: req.body.email,
           subject: 'Регистрация в игре CustomStory',
