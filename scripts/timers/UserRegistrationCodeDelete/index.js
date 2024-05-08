@@ -2,8 +2,8 @@ const logger = require('../../../logger');
 const prisma = require('../../../db');
 const DateTime = require('luxon').DateTime;
 
-prisma.registration_check
-  .findMany({
+try {
+  const registrations = await prisma.registration_check.findMany({
     select: {
       id: true,
     },
@@ -12,20 +12,15 @@ prisma.registration_check
         lte: BigInt(DateTime.now().minus({ hour: 6 }).toMillis()),
       },
     },
-  })
-  .then((results) => {
-    results.forEach((result) => {
-      prisma.registration_check
-        .delete({
-          where: {
-            id: result.id,
-          },
-        })
-        .catch((err) => {
-          logger.error(err);
-        });
-    });
-  })
-  .catch((err) => {
-    logger.error(err);
   });
+
+  registrations.forEach((result) => {
+    prisma.registration_check.delete({
+      where: {
+        id: result.id,
+      },
+    });
+  });
+} catch (err) {
+  logger.error(err);
+}

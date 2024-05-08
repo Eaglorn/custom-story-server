@@ -40,6 +40,5 @@ module.exports = async function (req, res) {
     }
   } catch (error) {
     logger.error(error);
-    throw error;
   }
 };
