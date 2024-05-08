@@ -29,7 +29,7 @@ module.exports = async function (req, res) {
             type: registrationCheck.type,
           });
         } else {
-          res.send({ success: true, registration: true, password: false });
+          res.send({ success: true, registration: true, email: true, password: false });
         }
       } else {
         const code = uuid.v4();
@@ -51,7 +51,6 @@ module.exports = async function (req, res) {
         });
         res.send({
           success: true,
-          registration: true,
         });
       }
     }
