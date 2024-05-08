@@ -22,7 +22,7 @@ module.exports = async function (req, res) {
             id: registrationCheck.id,
           },
           data: {
-            status: 'history_read',
+            type: 'history_read',
           },
         });
         res.send({
