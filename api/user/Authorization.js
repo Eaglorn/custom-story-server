@@ -20,7 +20,7 @@ module.exports = async function (req, res) {
         });
       }
     } else {
-      const registrationCheck = await prisma.user.findFirst({
+      const registrationCheck = await prisma.registration_check.findFirst({
         where: { email: req.body.email },
         select: { password: true, type: true },
       });
