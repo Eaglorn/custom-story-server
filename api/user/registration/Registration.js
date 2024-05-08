@@ -11,6 +11,7 @@ module.exports = async function (req, res) {
       where: { email: req.body.email },
       select: { email: true },
     });
+    console.log(user);
     if (user != null) {
       res.send({
         registration: false,
