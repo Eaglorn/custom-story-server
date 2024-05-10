@@ -12,12 +12,12 @@ datasource db {
 }
 
 model registration_check {
-  id       Int                      @id @default(autoincrement())
-  email    String?                  @unique
+  id       Int                     @id @default(autoincrement())
+  email    String?                 @unique
   password String?
   code     String?
-  date     BigInt?                  @db.BigInt
-  type    registration_check_type @default(code_write)
+  date     BigInt?                 @db.BigInt
+  type     registration_check_type @default(code_write)
 }
 
 enum registration_check_type {

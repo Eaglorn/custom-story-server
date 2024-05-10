@@ -1,6 +1,6 @@
-const logger = require('../../../logger');
-const prisma = require('../../../db');
-const md5 = require('md5');
+const logger = require('../../../logger')
+const prisma = require('../../../db')
+const md5 = require('md5')
 
 module.exports = async function (req, res) {
   try {
@@ -13,7 +13,7 @@ module.exports = async function (req, res) {
       where: {
         email: req.body.email,
       },
-    });
+    })
     if (registrationCheck != null) {
       if (md5(req.body.password) === registrationCheck.password) {
         await prisma.registration_check.update({
@@ -23,10 +23,10 @@ module.exports = async function (req, res) {
           data: {
             type: 'hero_create',
           },
-        });
+        })
       }
     }
   } catch (error) {
-    logger.error(error);
+    logger.error(error)
   }
-};
+}

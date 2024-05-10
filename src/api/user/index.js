@@ -1,3 +1,3 @@
-const Authorization = require('./Authorization');
+const Authorization = require('./Authorization')
 
-module.exports = { Authorization };
+module.exports = { Authorization }
