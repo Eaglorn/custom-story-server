@@ -5,6 +5,7 @@ const path = require('path')
 const compression = require('compression')
 const app = express()
 const fs = require('fs')
+const eiows = require('eiows')
 const httpsServer = require('https').createServer(
   {
     key: fs.readFileSync('c:/certs/key.pem'),
@@ -35,6 +36,7 @@ const io = new Server(httpsServer, {
   cors: {
     origin: '*',
   },
+  wsEngine: eiows.Server,
 })
 
 io.engine.generateId = (req) => {
