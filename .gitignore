@@ -89,3 +89,5 @@ prisma/docs/
 dist/
 
 git-sizer.exe
+
+.env

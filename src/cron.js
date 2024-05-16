@@ -1,10 +1,10 @@
 const logger = require('../src/logger')
-const prisma = require('../src/db')
+const postgresql = require('../src/dbp')
 const DateTime = require('luxon').DateTime
 
 const cronRegistrationCheckDelete = async function () {
   return cron.scheduleJob('*/1 * * * *', function () {
-    prisma.registration_check
+    postgresql.registration_check
       .findMany({
         select: {
           id: true,
@@ -17,7 +17,7 @@ const cronRegistrationCheckDelete = async function () {
       })
       .then((result) => {
         result.forEach((item) => {
-          prisma.registration_check.delete({
+          postgresql.registration_check.delete({
             where: {
               id: item.id,
             },

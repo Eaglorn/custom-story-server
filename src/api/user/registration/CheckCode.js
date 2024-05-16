@@ -1,10 +1,10 @@
 const logger = require('../../../logger')
-const prisma = require('../../../db')
+const postgresql = require('../../../dbp')
 const md5 = require('md5')
 
 module.exports = async function (req, res) {
   try {
-    const registrationCheck = await prisma.registration_check.findFirst({
+    const registrationCheck = await postgresql.registration_check.findFirst({
       select: {
         code: true,
         password: true,
@@ -20,7 +20,7 @@ module.exports = async function (req, res) {
         registrationCheck.code === req.body.code &&
         md5(req.body.password) === registrationCheck.password
       ) {
-        await prisma.registration_check.update({
+        await postgresql.registration_check.update({
           where: {
             id: registrationCheck.id,
           },

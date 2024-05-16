@@ -1,48 +1,11 @@
-/*
-  Warnings:
+-- CreateEnum
+CREATE TYPE "registration_check_type" AS ENUM ('code_write', 'history_read', 'hero_create');
 
-  - You are about to drop the `ContainerItem` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `EquipmentItem` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Hero` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `RegistrationCheck` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
 -- CreateEnum
 CREATE TYPE "user_type" AS ENUM ('admin', 'moderator', 'vip', 'user');
 
 -- CreateEnum
 CREATE TYPE "equipment_item_slot" AS ENUM ('head', 'shoulders', 'body', 'bracers', 'gloves', 'belt', 'legs', 'boots', 'left_hand', 'right_hand', 'both_hand');
-
--- DropForeignKey
-ALTER TABLE "ContainerItem" DROP CONSTRAINT "ContainerItem_hero_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "EquipmentItem" DROP CONSTRAINT "EquipmentItem_hero_id_fkey";
-
--- DropForeignKey
-ALTER TABLE "Hero" DROP CONSTRAINT "Hero_user_id_fkey";
-
--- DropTable
-DROP TABLE "ContainerItem";
-
--- DropTable
-DROP TABLE "EquipmentItem";
-
--- DropTable
-DROP TABLE "Hero";
-
--- DropTable
-DROP TABLE "RegistrationCheck";
-
--- DropTable
-DROP TABLE "User";
-
--- DropEnum
-DROP TYPE "EquipmentItemSlot";
-
--- DropEnum
-DROP TYPE "UserType";
 
 -- CreateTable
 CREATE TABLE "registration_check" (
@@ -50,7 +13,8 @@ CREATE TABLE "registration_check" (
     "email" TEXT,
     "password" TEXT,
     "code" TEXT,
-    "date" TIMESTAMP(3),
+    "date" BIGINT,
+    "type" "registration_check_type" NOT NULL DEFAULT 'code_write',
 
     CONSTRAINT "registration_check_pkey" PRIMARY KEY ("id")
 );
@@ -69,15 +33,9 @@ CREATE TABLE "user" (
 CREATE TABLE "hero" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER,
-    "money" DECIMAL(15,3) NOT NULL DEFAULT 0.0,
-    "hp" DECIMAL(9,3) NOT NULL DEFAULT 0.0,
-    "mp" DECIMAL(9,3) NOT NULL DEFAULT 0.0,
-    "str" DECIMAL(7,3) NOT NULL DEFAULT 10.0,
-    "agi" DECIMAL(7,3) NOT NULL DEFAULT 10.0,
-    "vit" DECIMAL(7,3) NOT NULL DEFAULT 10.0,
-    "sta" DECIMAL(7,3) NOT NULL DEFAULT 10.0,
-    "int" DECIMAL(7,3) NOT NULL DEFAULT 10.0,
-    "wis" DECIMAL(7,3) NOT NULL DEFAULT 10.0,
+    "money" TEXT,
+    "body" TEXT,
+    "int" TEXT,
     "container_slots" SMALLINT DEFAULT 10,
 
     CONSTRAINT "hero_pkey" PRIMARY KEY ("id")

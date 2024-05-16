@@ -1,13 +1,13 @@
 const md5 = require('md5')
 const uuid = require('uuid')
 const logger = require('../../../logger')
-const prisma = require('../../../db')
+const postgresql = require('../../../dbp')
 const DateTime = require('luxon').DateTime
 const mailRegistration = require('../../../nodemailer')
 
 module.exports = async function (req, res) {
   try {
-    let user = await prisma.user.findFirst({
+    let user = await postgresql.user.findFirst({
       where: { email: req.body.email },
       select: { email: true },
     })
@@ -17,7 +17,7 @@ module.exports = async function (req, res) {
         email: false,
       })
     } else {
-      const registrationCheck = await prisma.registration_check.findFirst({
+      const registrationCheck = await postgresql.registration_check.findFirst({
         where: { email: req.body.email },
         select: { email: true, password: true, type: true },
       })
@@ -38,7 +38,7 @@ module.exports = async function (req, res) {
         }
       } else {
         const code = uuid.v4()
-        await prisma.registration_check.create({
+        await postgresql.registration_check.create({
           data: {
             email: req.body.email,
             password: md5(req.body.password),
