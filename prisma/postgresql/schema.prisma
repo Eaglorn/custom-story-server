@@ -2,8 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../../node_modules/@prisma/postgresql/client"
+  provider        = "prisma-client-js"
+  output          = "../../node_modules/@prisma/postgresql/client"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {

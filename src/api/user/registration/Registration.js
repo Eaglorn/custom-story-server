@@ -2,6 +2,7 @@ const md5 = require('md5')
 const uuid = require('uuid')
 const logger = require('../../../logger')
 const postgresql = require('../../../dbp')
+const mongodb = require('../../../dbm')
 const DateTime = require('luxon').DateTime
 const mailRegistration = require('../../../nodemailer')
 

@@ -8,8 +8,12 @@ const fs = require('fs')
 const eiows = require('eiows')
 const httpsServer = require('https').createServer(
   {
-    key: fs.readFileSync('c:/certs/key.pem'),
-    cert: fs.readFileSync('c:/certs/cert.pem'),
+    key: fs.readFileSync(
+      '/home/customstorydev/custom-story-server/certs/key.pem'
+    ),
+    cert: fs.readFileSync(
+      '/home/customstorydev/custom-story-server/certs/cert.pem'
+    ),
   },
   app
 )
