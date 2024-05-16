@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "set NODE_ENV=dev && node ./index.js",
     "prod": "set NODE_ENV=prod && node ./index.js",
-    "generate": "npx prisma generate",
-    "migrate:postgresql": "npx prisma migrate dev --schema prisma/postgresql/schema.prisma && yarn generate --schema prisma/postgresql/schema.prisma",
-    "migrate:mongodb": "npx prisma migrate dev --schema prisma/mongodb/schema.prisma && yarn generate --schema prisma/mongodb/schema.prisma",
+    "generate:postgresql": "npx prisma generate --schema prisma/postgresql/schema.prisma",
+    "generate:mongodb": "npx prisma generate --schema prisma/mongodb/schema.prisma",
+    "migrate": "npx prisma migrate dev --schema prisma/postgresql/schema.prisma && yarn generate --schema prisma/postgresql/schema.prisma",
     "studio": "npx prisma studio",
     "docs": "npx prisma-docs-generator serve",
     "up": "yarn install && yarn upgrade"

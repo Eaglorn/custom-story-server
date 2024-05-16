@@ -7,8 +7,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL_POSTGRESQL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL_POSTGRESQL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL_POSTGRESQL")
 }
 
 model registration_check {
