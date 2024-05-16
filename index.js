@@ -41,6 +41,9 @@ const io = new Server(httpsServer, {
     origin: '*',
   },
   wsEngine: eiows.Server,
+  perMessageDeflate: {
+    threshold: 32768,
+  },
 })
 
 io.engine.generateId = (req) => {
