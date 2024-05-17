@@ -2,7 +2,7 @@ const md5 = require('md5')
 const uuid = require('uuid')
 const logger = require('../../../logger')
 const postgresql = require('../../../dbp')
-const mongodb = require('../../../dbm')
+const redis = require('../../../dbr')
 const DateTime = require('luxon').DateTime
 const mailRegistration = require('../../../nodemailer')
 
@@ -18,6 +18,12 @@ module.exports = async function (req, res) {
         email: false,
       })
     } else {
+      const registration_check = await redis.hgetall(
+        'registration_check:' + req.body.email
+      )
+      if (Object.keys(registration_check).length != 0) {
+      } else {
+      }
       const registrationCheck = await postgresql.registration_check.findFirst({
         where: { email: req.body.email },
         select: { email: true, password: true, type: true },
