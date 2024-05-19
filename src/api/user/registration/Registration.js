@@ -18,17 +18,10 @@ module.exports = async function (req, res) {
         email: false,
       })
     } else {
-      const registration_check = await redis.hgetall(
+      const registrationCheck = await redis.hgetall(
         'registration_check:' + req.body.email
       )
-      if (Object.keys(registration_check).length != 0) {
-      } else {
-      }
-      const registrationCheck = await postgresql.registration_check.findFirst({
-        where: { email: req.body.email },
-        select: { email: true, password: true, type: true },
-      })
-      if (registrationCheck != null) {
+      if (registrationCheck) {
         if (md5(req.body.password) === registrationCheck.password) {
           res.send({
             success: true,
@@ -44,14 +37,11 @@ module.exports = async function (req, res) {
           })
         }
       } else {
-        const code = uuid.v4()
-        await postgresql.registration_check.create({
-          data: {
-            email: req.body.email,
-            password: md5(req.body.password),
-            code: code,
-            date: DateTime.now().toMillis(),
-          },
+        await redis.hset('registration_check:' + req.body.email, {
+          email: req.body.email,
+          password: md5(req.body.password),
+          code: code,
+          date: DateTime.now().toMillis(),
         })
         await mailRegistration.sendMail({
           from: 'registration@customstory.online',
