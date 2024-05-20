@@ -6,6 +6,7 @@ const compression = require('compression')
 const app = express()
 const fs = require('fs')
 const eiows = require('eiows')
+
 const httpsServer = require('https').createServer(
   {
     key: fs.readFileSync(
@@ -50,8 +51,6 @@ io.engine.generateId = (req) => {
   return uuid.v4()
 }
 
-const { metricUser } = require('./src/metric')
-
 const { cronRegistrationCheckDelete } = require('./src/cron')
 
 socketHandler(io)
@@ -82,3 +81,5 @@ app2.get('/*', (req, res) => {
 })
 
 httpServer.listen(80, '195.133.196.229', function () {})
+
+const metric = require('./src/metric')
