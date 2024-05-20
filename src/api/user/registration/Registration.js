@@ -17,7 +17,7 @@ module.exports = async function (req, res) {
         registration: false,
         email: false,
       })
-    } else if (await db.redis.hexists(redisEmail, 'email')) {
+    } else if (await db.redis.exists(redisEmail)) {
       const registrationCheck = await db.redis.hgetall(redisEmail)
       if (md5(req.body.password) === registrationCheck.password) {
         res.send({

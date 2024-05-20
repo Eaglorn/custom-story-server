@@ -1,10 +1,6 @@
-const pm2 = require('@pm2/io')
+const { userOnline } = require('../metric').metricUser
 
 let PlayersCount = 0
-
-const userOnline = pm2.metric({
-  name: 'UserOnline',
-})
 
 module.exports = function (io) {
   io.on('connection', async (socket) => {

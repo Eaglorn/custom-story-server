@@ -50,6 +50,8 @@ io.engine.generateId = (req) => {
   return uuid.v4()
 }
 
+const { metricUser } = require('./src/metric')
+
 const { cronRegistrationCheckDelete } = require('./src/cron')
 
 socketHandler(io)

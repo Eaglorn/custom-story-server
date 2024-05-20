@@ -5,7 +5,7 @@ const md5 = require('md5')
 module.exports = async function (req, res) {
   try {
     const redisEmail = 'registration_check:' + req.body.email
-    if (await db.redis.hexists(redisEmail, 'email')) {
+    if (await db.redis.exists(redisEmail)) {
       const registrationCheck = await db.redis.hgetall(redisEmail)
       if (
         registrationCheck.code === req.body.code &&

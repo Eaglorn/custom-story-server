@@ -11,7 +11,8 @@
     "migrate": "npx prisma migrate dev --schema prisma/postgresql/schema.prisma && yarn generate:postgresql",
     "studio": "npx prisma studio",
     "docs": "npx prisma-docs-generator serve",
-    "up": "yarn install && yarn upgrade"
+    "up": "yarn install && yarn upgrade",
+    "pm2:start": "pm2 start ecosystem.config.js"
   },
   "dependencies": {
     "@pm2/io": "^5.0.2",

@@ -1,6 +1,7 @@
 const md5 = require('md5')
 const logger = require('../../logger')
 const db = require('../../db')
+const { userOnline } = require('../../metric').metricUser
 
 module.exports = async function (req, res) {
   try {
@@ -20,7 +21,7 @@ module.exports = async function (req, res) {
           password: false,
         })
       }
-    } else if (await db.redis.hexists(redisEmail, 'email')) {
+    } else if (await db.redis.exists(redisEmail)) {
       const registrationCheck = await db.redis.hgetall(redisEmail)
       if (md5(req.body.password) === registrationCheck.password) {
         res.send({
