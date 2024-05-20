@@ -8,8 +8,8 @@ module.exports = async function (req, res) {
     if (await db.redis.hexists(redisEmail, 'email')) {
       const registrationCheck = await db.redis.hgetall(redisEmail)
       if (md5(req.body.password) === registrationCheck.password) {
-        registrationCheck.type = 'hero_create'
-        await db.redis.hset(redisEmail, registrationCheck)
+        await db.redis.hdel(redisEmail, 'type')
+        await db.redis.hsetnx(redisEmail, 'type', 'hero_create')
       }
     }
   } catch (error) {

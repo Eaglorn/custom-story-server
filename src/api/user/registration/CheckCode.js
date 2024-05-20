@@ -11,8 +11,8 @@ module.exports = async function (req, res) {
         registrationCheck.code === req.body.code &&
         md5(req.body.password) === registrationCheck.password
       ) {
-        registrationCheck.type = 'history_read'
-        await db.redis.hset(redisEmail, registrationCheck)
+        await db.redis.hdel(redisEmail, 'type')
+        await db.redis.hsetnx(redisEmail, 'type', 'history_read')
         res.send({
           success: true,
         })
