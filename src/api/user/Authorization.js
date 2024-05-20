@@ -1,11 +1,10 @@
 const md5 = require('md5')
 const logger = require('../../logger')
 const db = require('../../db')
-const { userOnline } = require('../../metric').metricUser
 
 module.exports = async function (req, res) {
   try {
-    const redisEmail = 'registration_check:' + req.body.email
+    const redisEmail = 'user:registration:check:' + req.body.email
     const user = await db.postgresql.user.findFirst({
       where: { email: req.body.email },
       select: { password: true, type: true },

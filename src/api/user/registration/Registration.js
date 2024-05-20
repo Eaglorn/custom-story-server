@@ -7,7 +7,7 @@ const mailRegistration = require('../../../nodemailer')
 
 module.exports = async function (req, res) {
   try {
-    const redisEmail = 'registration_check:' + req.body.email
+    const redisEmail = 'user:registration:check:' + req.body.email
     let user = await db.postgresql.user.findFirst({
       where: { email: req.body.email },
       select: { email: true },
@@ -39,7 +39,6 @@ module.exports = async function (req, res) {
         email: req.body.email,
         password: md5(req.body.password),
         code: code,
-        date: DateTime.now().toMillis(),
         type: 'code_write',
       })
       await db.redis.expire(redisEmail, 21600)

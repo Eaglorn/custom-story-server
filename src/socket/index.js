@@ -1,5 +1,3 @@
-const { userOnline } = require('../metric').metricUser
-
 let PlayersCount = 0
 
 module.exports = function (io) {
