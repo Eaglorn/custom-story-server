@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "set NODE_ENV=dev && node ./index.js",
-    "prod": "set NODE_ENV=prod && node ./index.js",
+    "dev": "set NODE_ENV=dev && node ./index.js --env-file=.env",
+    "prod": "set NODE_ENV=prod && node ./index.js --env-file=.env",
     "generate": "npx prisma generate --schema prisma/postgresql/schema.prisma && npx prisma generate --schema prisma/mongodb/schema.prisma",
     "generate:postgresql": "npx prisma generate --schema prisma/postgresql/schema.prisma",
     "generate:mongodb": "npx prisma generate --schema prisma/mongodb/schema.prisma",

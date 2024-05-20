@@ -1,9 +1,8 @@
-const logger = require('./logger')
-const io = require('@pm2/io')
+const pm2 = require('@pm2/io')
 
 let PlayersCount = 0
 
-const userOnline = io.metric({
+const userOnline = pm2.metric({
   name: 'UserOnline',
 })
 

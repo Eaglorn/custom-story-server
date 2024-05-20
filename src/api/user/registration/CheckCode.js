@@ -1,33 +1,18 @@
 const logger = require('../../../logger')
-const postgresql = require('../../../dbp')
+const db = require('../../../db')
 const md5 = require('md5')
 
 module.exports = async function (req, res) {
   try {
-    const registrationCheck = await postgresql.registration_check.findFirst({
-      select: {
-        code: true,
-        password: true,
-        id: true,
-        email: true,
-      },
-      where: {
-        email: req.body.email,
-      },
-    })
-    if (registrationCheck != null) {
+    const redisEmail = 'registration_check:' + req.body.email
+    if (await db.redis.hexists(redisEmail, 'email')) {
+      const registrationCheck = await db.redis.hgetall(redisEmail)
       if (
         registrationCheck.code === req.body.code &&
         md5(req.body.password) === registrationCheck.password
       ) {
-        await postgresql.registration_check.update({
-          where: {
-            id: registrationCheck.id,
-          },
-          data: {
-            type: 'history_read',
-          },
-        })
+        registrationCheck.type = 'history_read'
+        await db.redis.hset(redisEmail, registrationCheck)
         res.send({
           success: true,
         })

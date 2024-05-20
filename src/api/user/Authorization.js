@@ -1,10 +1,11 @@
 const md5 = require('md5')
 const logger = require('../../logger')
-const postgresql = require('../../dbp')
+const db = require('../../db')
 
 module.exports = async function (req, res) {
   try {
-    const user = await postgresql.user.findFirst({
+    const redisEmail = 'registration_check:' + req.body.email
+    const user = await db.postgresql.user.findFirst({
       where: { email: req.body.email },
       select: { password: true, type: true },
     })
@@ -19,33 +20,28 @@ module.exports = async function (req, res) {
           password: false,
         })
       }
-    } else {
-      const registrationCheck = await postgresql.registration_check.findFirst({
-        where: { email: req.body.email },
-        select: { password: true, type: true },
-      })
-      if (registrationCheck != null) {
-        if (md5(req.body.password) === registrationCheck.password) {
-          res.send({
-            success: true,
-            registration: true,
-            type: registrationCheck.type,
-          })
-        } else {
-          res.send({
-            success: false,
-            registration: true,
-            email: true,
-            password: false,
-          })
-        }
+    } else if (await db.redis.hexists(redisEmail, 'email')) {
+      const registrationCheck = await db.redis.hgetall(redisEmail)
+      if (md5(req.body.password) === registrationCheck.password) {
+        res.send({
+          success: true,
+          registration: true,
+          type: registrationCheck.type,
+        })
       } else {
         res.send({
           success: false,
-          registration: false,
-          email: false,
+          registration: true,
+          email: true,
+          password: false,
         })
       }
+    } else {
+      res.send({
+        success: false,
+        registration: false,
+        email: false,
+      })
     }
   } catch (error) {
     logger.error(error)
