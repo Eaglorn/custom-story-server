@@ -6,6 +6,9 @@ const app = express()
 const fs = require('fs')
 const { createAdapter } = require('@socket.io/redis-streams-adapter')
 const { setupWorker } = require('@socket.io/sticky')
+const eiows = requier(
+  '/usr/local/share/.config/yarn/global/node_modules/eiows'
+).Server
 const db = require('./src/db')
 db.redis.set('metric:user:online:count', 0).then((result) => {})
 
@@ -35,8 +38,12 @@ const io = new Server(httpsServer, {
   transports: ['websocket'],
   adapter: createAdapter(db.redis),
   connectionStateRecovery: {
-    maxDisconnectionDuration: 60 * 10,
+    maxDisconnectionDuration: 1000 * 60 * 5,
     skipMiddlewares: true,
+  },
+  wsEngine: eiows,
+  perMessageDeflate: {
+    threshold: 32768,
   },
 })
 
