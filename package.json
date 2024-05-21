@@ -18,10 +18,8 @@
     "kill": "pm2 kill v"
   },
   "dependencies": {
-    "@pm2/io": "^5.0.2",
     "@prisma/client": "^5.14.0",
     "@socket.io/redis-streams-adapter": "^0.2.2",
-    "@socket.io/sticky": "1.0.4",
     "async": "^3.2.5",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",

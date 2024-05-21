@@ -5,7 +5,6 @@ const compression = require('compression')
 const app = express()
 const fs = require('fs')
 const { createAdapter } = require('@socket.io/redis-streams-adapter')
-const { setupWorker } = require('@socket.io/sticky')
 const eiows =
   require('/usr/local/share/.config/yarn/global/node_modules/eiows').Server
 const db = require('./src/db')
@@ -55,8 +54,6 @@ io.engine.generateId = (req) => {
 
 const socketHandler = require('./src/socket')
 socketHandler(io)
-
-setupWorker(io)
 
 global.io = io
 
