@@ -1,16 +1,20 @@
-let PlayersCount = 0
+const db = require('../db')
 
-module.exports = function (io) {
+const metricUserOnlineCount = 'metric:user:online:count'
+
+await db.redis.set(metricUserOnlineCount, 0)
+
+module.exports = async function (io) {
   io.on('connection', async (socket) => {
-    PlayersCount++
-    socket.emit('GetPlayersCount', { value: PlayersCount })
+    await db.redis.incr(metricUserOnlineCount)
+    socket.emit('GetPlayersCount', {
+      value: await db.redis.get(metricUserOnlineCount),
+    })
     socket.broadcast.emit('AddPlayersCount')
-    userOnline.set(PlayersCount)
 
     socket.on('disconnect', (reason) => {
-      PlayersCount--
+      db.redis.decr(metricUserOnlineCount)
       io.sockets.emit('RemovePlayersCount')
-      userOnline.set(PlayersCount)
     })
   })
 }
