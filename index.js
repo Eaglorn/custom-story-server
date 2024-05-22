@@ -4,10 +4,12 @@ const path = require('path')
 const compression = require('compression')
 const app = express()
 const fs = require('fs')
+const helmet = require('helmet')
 const { createAdapter } = require('@socket.io/redis-streams-adapter')
 const eiows =
   require('/usr/local/share/.config/yarn/global/node_modules/eiows').Server
 const db = require('./src/db')
+
 db.redis.set('metric:user:online:count', 0).then((result) => {})
 
 const httpsServer = require('https').createServer(
@@ -24,6 +26,8 @@ const httpsServer = require('https').createServer(
 
 const { Server } = require('socket.io')
 const uuid = require('uuid')
+
+app.use(helmet())
 
 app.use(compression())
 
