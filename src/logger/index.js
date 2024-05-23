@@ -7,19 +7,19 @@ const logger = winston.createLogger({
   format: combine(timestamp(), winston.format.json()),
   transports: [
     new winston.transports.File({
-      filename: '/home/customstorydev/custom-story-server/logs/debug.log',
+      filename: '/home/customstorydev/custom-story-server/logs/app/debug.log',
       level: 'debug',
     }),
     new winston.transports.File({
-      filename: '/home/customstorydev/custom-story-server/logs/warn.log',
+      filename: '/home/customstorydev/custom-story-server/logs/app/warn.log',
       level: 'warn',
     }),
     new winston.transports.File({
-      filename: '/home/customstorydev/custom-story-server/logs/error.log',
+      filename: '/home/customstorydev/custom-story-server/logs/app/error.log',
       level: 'error',
     }),
     new winston.transports.File({
-      filename: '/home/customstorydev/custom-story-server/logs/info.log',
+      filename: '/home/customstorydev/custom-story-server/logs/app/info.log',
       level: 'info',
     }),
   ],
