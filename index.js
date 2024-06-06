@@ -27,6 +27,16 @@ const httpsServer = require('https').createServer(
 const { Server } = require('socket.io')
 const uuid = require('uuid')
 
+app.use(function (req, res, next) {
+  try {
+    decodeURIComponent(req.path)
+  } catch (error) {
+    logger.log(error)
+    return res.redirect('/')
+  }
+  next()
+})
+
 app.use(helmet())
 
 app.use(compression())
@@ -65,6 +75,7 @@ const User = require('./src/api/user')
 app.post('/api/user/authorization', User.Authorization)
 
 const UserRegistration = require('./src/api/user/registration')
+const { logger } = require('./src/nodemailer')
 
 app.post('/api/user/registration', UserRegistration.Registration)
 app.post('/api/user/registration/check/code', UserRegistration.CheckCode)
