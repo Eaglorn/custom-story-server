@@ -4,6 +4,21 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const compression = require('compression')
 const app = express()
+
+app.use(function (req, res, next) {
+  let err = null
+  try {
+    decodeURIComponent(req.path)
+  } catch (e) {
+    err = e
+  }
+  if (err) {
+    logger.error(err)
+    return res.redirect('/')
+  }
+  next()
+})
+
 const fs = require('fs')
 const helmet = require('helmet')
 const { createAdapter } = require('@socket.io/redis-streams-adapter')
@@ -27,16 +42,6 @@ const httpsServer = require('https').createServer(
 
 const { Server } = require('socket.io')
 const uuid = require('uuid')
-
-app.use(function (req, res, next) {
-  try {
-    decodeURIComponent(req.path)
-  } catch (error) {
-    logger.log(error)
-    return res.redirect('/')
-  }
-  next()
-})
 
 app.use(helmet())
 
