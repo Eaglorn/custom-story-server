@@ -1,3 +1,4 @@
+const logger = require('./src/logger')
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -75,12 +76,11 @@ const User = require('./src/api/user')
 app.post('/api/user/authorization', User.Authorization)
 
 const UserRegistration = require('./src/api/user/registration')
-const { logger } = require('./src/nodemailer')
-
 app.post('/api/user/registration', UserRegistration.Registration)
 app.post('/api/user/registration/check/code', UserRegistration.CheckCode)
 app.post('/api/user/registration/history/read', UserRegistration.HistoryRead)
 app.post('/api/user/registration/hero/create', UserRegistration.HeroCreate)
+
 app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html')
 })
