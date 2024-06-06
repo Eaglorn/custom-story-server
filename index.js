@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'dist')))
 const io = new Server(httpsServer, {
   transports: ['websocket'],
   adapter: createAdapter(db.redis, {
-    sessionKeyPrefix: 'socket.io:session',
+    sessionKeyPrefix: 'socket.io:session:',
     streamName: 'socket.io:stream',
   }),
   connectionStateRecovery: {
