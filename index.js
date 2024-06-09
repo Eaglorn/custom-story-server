@@ -94,6 +94,22 @@ httpsServer.listen(443, '195.133.196.229', function () {})
 
 const app2 = express()
 
+app2.use(function (req, res, next) {
+  let err = null
+  try {
+    decodeURIComponent(req.path)
+  } catch (e) {
+    err = e
+  }
+  if (err) {
+    logger.error(err)
+    return res.redirect('/')
+  }
+  next()
+})
+
+app2.use(helmet())
+
 const httpServer = require('http').createServer(app2)
 
 app2.get('/*', (req, res) => {
