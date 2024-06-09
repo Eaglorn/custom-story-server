@@ -13,7 +13,7 @@ app.use(function (req, res, next) {
     err = e
   }
   if (err) {
-    logger.error(err)
+    logger.log('error', error)
     return res.redirect('/')
   }
   next()
@@ -102,7 +102,7 @@ app2.use(function (req, res, next) {
     err = e
   }
   if (err) {
-    logger.error(err)
+    logger.log('error', error)
     return res.redirect('/')
   }
   next()
