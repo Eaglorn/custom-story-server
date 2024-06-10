@@ -91,29 +91,3 @@ app.get('/*', (req, res) => {
 })
 
 httpsServer.listen(443, '195.133.196.229', function () {})
-
-const app2 = express()
-
-app2.use(function (req, res, next) {
-  let error = null
-  try {
-    decodeURIComponent(req.path)
-  } catch (e) {
-    error = e
-  }
-  if (error) {
-    logger.log('error', error)
-    return res.redirect('/')
-  }
-  next()
-})
-
-app2.use(helmet())
-
-const httpServer = require('http').createServer(app2)
-
-app2.get('/*', (req, res) => {
-  res.redirect('https://customstory.online')
-})
-
-httpServer.listen(80, '195.133.196.229', function () {})
