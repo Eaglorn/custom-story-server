@@ -6,13 +6,13 @@ const compression = require('compression')
 const app = express()
 
 app.use(function (req, res, next) {
-  let err = null
+  let error = null
   try {
     decodeURIComponent(req.path)
   } catch (e) {
-    err = e
+    error = e
   }
-  if (err) {
+  if (error) {
     logger.log('error', error)
     return res.redirect('/')
   }
@@ -95,13 +95,13 @@ httpsServer.listen(443, '195.133.196.229', function () {})
 const app2 = express()
 
 app2.use(function (req, res, next) {
-  let err = null
+  let error = null
   try {
     decodeURIComponent(req.path)
   } catch (e) {
-    err = e
+    error = e
   }
-  if (err) {
+  if (error) {
     logger.log('error', error)
     return res.redirect('/')
   }
