@@ -12,8 +12,8 @@ module.exports = function (req, res) {
           .hgetall(redisEmail)
           .then((registrationCheck) => {
             if (
-              registrationCheck.code === req.body.code &&
-              md5(req.body.password) === registrationCheck.password
+              md5(req.body.password) === registrationCheck.password &&
+              registrationCheck.type == 'history_read'
             ) {
               db.redis
                 .hset(redisEmail, { type: 'hero_create' })
@@ -25,11 +25,19 @@ module.exports = function (req, res) {
                 .catch((error) => {
                   logger.log('error', error)
                 })
+            } else {
+              res.send({
+                success: false,
+              })
             }
           })
           .catch((error) => {
             logger.log('error', error)
           })
+      } else {
+        res.send({
+          success: false,
+        })
       }
     })
     .catch((error) => {

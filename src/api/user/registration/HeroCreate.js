@@ -25,11 +25,19 @@ module.exports = function (req, res) {
                 .catch((error) => {
                   logger.log('error', error)
                 })
+            } else {
+              res.send({
+                success: false,
+              })
             }
           })
           .catch((error) => {
             logger.log('error', error)
           })
+      } else {
+        res.send({
+          success: false,
+        })
       }
     })
     .catch((error) => {
