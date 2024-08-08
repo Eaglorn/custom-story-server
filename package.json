@@ -18,7 +18,7 @@
     "pm2:kill": "pm2 kill"
   },
   "dependencies": {
-    "@prisma/client": "^5.17.0",
+    "@prisma/client": "^5.18.0",
     "@socket.io/redis-streams-adapter": "^0.2.2",
     "async": "^3.2.5",
     "body-parser": "^1.20.2",
@@ -28,7 +28,7 @@
     "express": "^4.19.2",
     "helmet": "^7.1.0",
     "ioredis": "^5.4.1",
-    "luxon": "^3.4.4",
+    "luxon": "^3.5.0",
     "md5": "^2.3.0",
     "mongodb": "^6.8.0",
     "node-schedule": "^2.1.1",
@@ -41,6 +41,6 @@
   },
   "devDependencies": {
     "prettier": "^3.3.3",
-    "prisma": "^5.17.0"
+    "prisma": "^5.18.0"
   }
 }
