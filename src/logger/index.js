@@ -1,10 +1,10 @@
 const winston = require('winston')
 const { format } = require('winston')
-const { combine, timestamp } = format
+const { combine, timestamp, json } = format
 
 const logger = winston.createLogger({
   level: 'info',
-  format: combine(timestamp(), winston.format.json()),
+  format: combine(timestamp(), json()),
   transports: [
     new winston.transports.File({
       filename: '/home/customstorydev/custom-story-server/logs/app/debug.log',
